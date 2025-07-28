@@ -1,0 +1,93 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'proctomtechdocker/weeky-travel-portal-front-end'
+        IMAGE_TAG = 'latest'
+        APP_PORT = '3000'
+        PORT_MAPPING = '3000:3000'
+        CONTAINER_NAME = 'weeky-travel-portal-front-end'
+        DOCKERFILE_PATH = 'Dockerfile'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', credentialsId: 'github-cred', url: 'https://github.com/upendra-rai/weeky-travel-portal-front-ent.git'
+            }
+        }
+
+        stage('Environment Info') {
+            steps {
+                echo "Printing Node and NPM versions..."
+                sh 'node -v && npm -v'
+            }
+        }
+
+        stage('Verify Workspace Contents') {
+            steps {
+                echo "Listing root directory files:"
+                sh "ls -la"
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo "Installing project dependencies with legacy-peer-deps..."
+                sh 'npm install --legacy-peer-deps'
+            }
+        }
+
+        stage('Build Next.js App') {
+            steps {
+                echo "Building Next.js project..."
+                sh 'npm run build'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker rmi -f ${IMAGE_NAME}:${IMAGE_TAG} || true"
+                    sh """
+                        echo "Building Docker image ${IMAGE_NAME}:${IMAGE_TAG} ..."
+                        docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -f ${DOCKERFILE_PATH} .
+                    """
+                }
+            }
+        }
+
+        stage('Stop and Remove Existing Container') {
+            steps {
+                script {
+                    def containerId = sh(script: "docker ps -aq --filter name=${CONTAINER_NAME}", returnStdout: true).trim()
+                    if (containerId) {
+                        echo "Stopping and removing container ${CONTAINER_NAME}..."
+                        sh "docker stop ${CONTAINER_NAME}"
+                        sh "docker rm ${CONTAINER_NAME}"
+                    } else {
+                        echo "No existing container named ${CONTAINER_NAME} found."
+                    }
+                }
+            }
+        }
+
+        stage('Run New Container') {
+            steps {
+                script {
+                    echo "Starting new container ${CONTAINER_NAME}..."
+                    sh "docker run -d --restart always -p ${PORT_MAPPING} --name ${CONTAINER_NAME} ${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Next.js app successfully deployed! Accessible on port ${APP_PORT}."
+        }
+        failure {
+            echo "❌ Deployment failed. Check the Jenkins logs for more details."
+        }
+    }
+}

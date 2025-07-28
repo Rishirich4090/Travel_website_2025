@@ -1,0 +1,35 @@
+<!-- Fallback placeholder image -->
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#f8f9fa"/>
+  <rect x="10" y="10" width="580" height="380" fill="none" stroke="#e9ecef" stroke-width="2" stroke-dasharray="10,5"/>
+  
+  <!-- Mountain/landscape icon -->
+  <g transform="translate(250, 150)">
+    <polygon points="0,50 30,0 60,30 100,0 130,50" fill="#dee2e6"/>
+    <polygon points="60,30 100,0 130,50 100,50" fill="#adb5bd"/>
+    
+    <!-- Sun -->
+    <circle cx="80" cy="15" r="8" fill="#ffc107"/>
+    
+    <!-- Cloud -->
+    <ellipse cx="40" cy="20" rx="12" ry="6" fill="#f8f9fa"/>
+    <ellipse cx="35" cy="18" rx="8" ry="5" fill="#f8f9fa"/>
+    <ellipse cx="45" cy="18" rx="8" ry="5" fill="#f8f9fa"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="300" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#6c757d">
+    Image Loading...
+  </text>
+  
+  <!-- Loading indicator -->
+  <circle cx="300" cy="280" r="3" fill="#007bff">
+    <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="315" cy="280" r="3" fill="#007bff">
+    <animate attributeName="opacity" values="0;1;0" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="330" cy="280" r="3" fill="#007bff">
+    <animate attributeName="opacity" values="0;1;0" dur="1.5s" begin="0.6s" repeatCount="indefinite"/>
+  </circle>
+</svg>

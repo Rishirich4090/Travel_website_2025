@@ -1,0 +1,392 @@
+@import "tailwindcss";
+
+:root {
+  /* Default CSS variables for theming */
+  --color-primary: #3B82F6;
+  --color-primary-dark: #1D4ED8;
+  --color-secondary: #10B981;
+  --color-accent: #F59E0B;
+  --color-background: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-text: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-border: #E5E7EB;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #3B82F6;
+}
+
+/* Utility classes for line clamping */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+.amit{
+  display: flex;
+  flex-direction: column !important;
+  min-height: 100vh;
+}
+
+/* Sidebar Layout Fix */
+@media (min-width: 1024px) {
+  .admin-layout {
+    display: flex !important;
+  }
+  
+  .admin-sidebar {
+    position: absolute !important;
+    transform: translateX(0) !important;
+    width: 256px;
+    flex-shrink: 0;
+  }
+  
+  .admin-content {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Focus states */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+
+/* Custom button styles */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Toast notifications positioning */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+/* Theme-aware CSS classes */
+/* These classes are automatically applied based on the active theme */
+
+/* Theme-based background and text colors */
+.theme-bg {
+  background-color: var(--color-background);
+}
+
+.theme-surface {
+  background-color: var(--color-surface);
+}
+
+.theme-text {
+  color: var(--color-text);
+}
+
+.theme-text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.theme-border {
+  border-color: var(--color-border);
+}
+
+/* Theme-based button styles */
+.theme-btn-primary {
+  background-color: var(--color-primary-color);
+  color: var(--color-button-text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-btn-secondary {
+  background-color: var(--color-secondary-color);
+  color: var(--color-button-text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-btn-secondary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Theme-based navbar styles */
+.theme-navbar {
+  background-color: var(--color-navbar-bg-color);
+  color: var(--color-navbar-text-color);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.theme-navbar a {
+  color: var(--color-navbar-text-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.theme-navbar a:hover {
+  color: var(--color-link-color);
+}
+
+/* Theme-based card styles */
+.theme-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.theme-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.theme-card h1,
+.theme-card h2,
+.theme-card h3,
+.theme-card h4,
+.theme-card h5,
+.theme-card h6 {
+  color: var(--color-heading-color);
+}
+
+.theme-card p,
+.theme-card span,
+.theme-card div {
+  color: var(--color-text-color);
+}
+
+.theme-card a {
+  color: var(--color-link-color);
+  text-decoration: none;
+}
+
+.theme-card a:hover {
+  text-decoration: underline;
+}
+
+/* Theme-based form styles */
+.theme-input {
+  background-color: var(--color-background-color);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-color);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.theme-input:focus {
+  border-color: var(--color-primary-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.theme-input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+/* Theme-based footer styles */
+.theme-footer {
+  background-color: var(--color-footer-bg-color);
+  color: var(--color-footer-text-color);
+  padding: 2rem;
+}
+
+.theme-footer a {
+  color: var(--color-footer-text-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.theme-footer a:hover {
+  color: var(--color-link-color);
+}
+
+/* Light and dark theme specific styles */
+.theme-light {
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+}
+
+.theme-dark {
+  --shadow-color: rgba(255, 255, 255, 0.1);
+  --shadow-hover: rgba(255, 255, 255, 0.15);
+}
+
+/* Theme transition effects */
+.theme-applied * {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+/* Override focus states for theme consistency */
+.theme-applied input:focus,
+.theme-applied select:focus,
+.theme-applied textarea:focus,
+.theme-applied button:focus {
+  outline: 2px solid var(--color-primary-color);
+  outline-offset: 2px;
+}
+
+/* Success, warning, error theme colors */
+.theme-success {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.theme-warning {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.theme-error {
+  background-color: var(--color-error);
+  color: white;
+}
+
+.theme-info {
+  background-color: var(--color-info);
+  color: white;
+}
